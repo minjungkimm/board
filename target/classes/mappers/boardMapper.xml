@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- XML Mapper 의 작성
+mapper를 xml로 이용할 경우, 다음과 같은 순서적용
+*1.xml로 작성된 mapper의 위치(저장경로) 설정 => 자바로 작성된 클래스와 경로를 분리(유지보수성)
+=>resources 경로 하위에 mapper 패키지 생성하여 현재 xml 파일을 생성함
+*2.xml mapper 파일을 작성하고, 필요한 dtd 추가 => mybatis 공식사이트에서 dtd 가져옮**mapper dtd!!!!
+							======= mybatis의 경우 작성된 xml mapper는
+							상단의 파일에서 사용하는 태그들에 대한 정보가 기록된 dtd를 추가한다
+*3.sql 작성 -->
+
+<mapper namespace="org.zerock.mapper.BoardMapper">
+<!-- namespace 속성은 클래스의 패키지와 유사한 용도, mybatis내에서
+원하는 sql문을 찾아서 실행할 때 동작 -->
+	<insert id="create">
+		insert into tb4_board(title,content,writer)
+		values(#{title},#{content},#{writer})
+	</insert>
+	<select id="read" resultType="BoardVO">
+		select bno,title,content,writer,regdate,viewcnt 
+		from tb4_board 
+		where bno=#{bno}
+	</select>
+	<update id="update">
+		update tb4_board 
+		set title=#{title},content=#{content}
+		where bno=#{bno} 
+	</update>
+	<delete id="delete">
+		delete from tb4_board
+		where bno=#{bno}
+	</delete>
+	<select id="listAll" resultType="BoardVO">
+		<![CDATA[
+		select bno,title,content,writer,regdate,viewcnt
+		from tb4_board
+		where bno>0
+		order by bno desc, regdate desc
+		]]>
+	</select>
+	<!-- id값을 BoardDAO 인터페이스의 메서드명과 동일하게 주었다 -->
+	<!-- #{}의 규칙
+	1.파라미터가 여러속성을 가진 객체일 경우, getNum() or setNum()을 의미
+	2.파라미터가 하나 이며, 기본자료형이나 문자열인 경우 값이 그대로 전달
+	3.파라미터가 Map 타입인 경우, Map 객체의 키 값이 {안과 동일한} 값을 찾습니다. -->
+	<select id="listPage" resultType="BoardVO">
+		<![CDATA[
+		select bno,title,content,writer,regdate,viewcnt
+		from tb4_board
+		where bno>0
+		order by bno desc,regdate desc
+		limit #{page},10
+		]]>
+	</select>
+	<select id="listCriteria" resultType="BoardVO">
+		<![CDATA[
+		select bno,title,content,writer,regdate,viewcnt
+		from tb4_board
+		where bno>0 
+		order by bno desc,regdate desc
+		limit #{pageStart},#{perPageNum} 
+		]]>
+	</select>
+	<select id="countPaging" resultType="int">
+		<![CDATA[
+		select
+		count(bno)
+		from tb4_board
+		where bno>0
+		]]>
+	</select>
+</mapper>
