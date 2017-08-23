@@ -8,7 +8,7 @@
 </head>
 <body>
 <%@include file="../include/header.jsp" %>
-	<form role="form" method="post" action="modifyPage">
+	<form role="form" method="post">
 		<input type='hidden' name='page' value="${cri.page}">
 		<input type='hidden' name='perPageNum' value="${cri.perPageNum}">
 		
@@ -51,7 +51,7 @@ $(document).ready(function(){
 	var formObj=$("form[role='form']");
 	console.log(formObj);
 	$(".btn-warning").on("click",function(){
-		self.location="/board/listPage?page=${cri.page}&perPageNum=${cri.perPageNum}";
+		location.href="/board/listPage?page=${cri.page}&perPageNum=${cri.perPageNum}";
 	});
 	$(".btn-primary").on("click",function(){
 		formObj.submit();

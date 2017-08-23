@@ -62,14 +62,14 @@ if(result=='success'){
 <%@include file="../include/footer.jsp" %>	
 </body>
 <script type="text/javascript">
-$(".pagination li a").on("click", function(event){
+/* $(".pagination li a").on("click", function(event){
 	event.preventDefault(); 
 	var targetPage = $(this).attr("href");
 	alert(targetPage);
-	var jobForm = $("#jobForm");
+	var jobForm = $('#jobForm');
 	jobForm.find("[name='page']").val(targetPage);
 	jobForm.attr("action","/board/listPage").attr("method", "get");
-	//jobForm.submit();
-});
+	jobForm.submit();
+}); */
 </script>
 </html>
