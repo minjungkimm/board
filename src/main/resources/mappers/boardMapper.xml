@@ -56,7 +56,8 @@ mapper를 xml로 이용할 경우, 다음과 같은 순서적용
 	</select>
 	<select id="listCriteria" resultType="BoardVO">
 		<![CDATA[
-		select bno,title,content,writer,regdate,viewcnt
+		select 
+		bno,title,content,writer,regdate,viewcnt
 		from tb4_board
 		where bno>0 
 		order by bno desc,regdate desc

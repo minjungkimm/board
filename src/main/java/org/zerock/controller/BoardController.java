@@ -82,16 +82,24 @@ public class BoardController {
 	 *이는 MAP과 유사하게 KEY값/VALUE값으로 데이터를 저장하는 역할
 	 *과거 Servlet에서는 RequestDispatcher에 데이터를 저장했듯이...
 	 *스프링에서는 MODEL이용 데이터저장*/
-	@RequestMapping(value="/read",method=RequestMethod.GET)
-	public void read(@RequestParam("bno") int bno,Model model)throws Exception{
+/*	@RequestMapping(value="/readPage",method=RequestMethod.GET)
+	public void read(@RequestParam("bno") int bno,Model model,@ModelAttribute("cri") Criteria cri)throws Exception{
+		model.addAttribute(service.read(bno));
+		파라미터는 외부에서 전달될 bno값을 전달받음
+		 * 좀 더 명확하게 표현하기 위해서 @RequestParam을 이용해서 구성합니다
+		 * 조회된 게시물을 jsp로 전달하기 위해 model객체 이용
+	}*/
+	//@RequestParam()은 servlet에서 request.getParameter()의 효과와 유사합니다
+	//model.addAttribute()은 전달할때 아무 이름값을 주지않고 데이터를 전송하면
+	//자동으로 클래스의 이름을 소문자로 시작해서 사용 ex)BoardVO => boardVO
+	
+	@RequestMapping(value="/readPage",method=RequestMethod.GET)
+	public void readPage(@RequestParam("bno") int bno,@ModelAttribute("cri") Criteria cri,Model model)throws Exception{
 		model.addAttribute(service.read(bno));
 		/*파라미터는 외부에서 전달될 bno값을 전달받음
 		 * 좀 더 명확하게 표현하기 위해서 @RequestParam을 이용해서 구성합니다
 		 * 조회된 게시물을 jsp로 전달하기 위해 model객체 이용*/
 	}
-	//@RequestParam()은 servlet에서 request.getParameter()의 효과와 유사합니다
-	//model.addAttribute()은 전달할때 아무 이름값을 주지않고 데이터를 전송하면
-	//자동으로 클래스의 이름을 소문자로 시작해서 사용 ex)BoardVO => boardVO
 	
 	@RequestMapping(value="/remove",method=RequestMethod.POST)
 	public String remove(@RequestParam("bno") int bno,
@@ -133,4 +141,30 @@ public class BoardController {
 		
 		model.addAttribute("pageMaker",pageMaker);
 	}
+	
+	@RequestMapping(value="/removePage",method=RequestMethod.POST)
+	public String remove(@RequestParam("bno") int bno,Criteria cri,RedirectAttributes rttr) throws Exception{
+		service.remove(bno);
+		rttr.addFlashAttribute("page",cri.getPage());
+		rttr.addFlashAttribute("perPageNum",cri.getPerPageNum());
+		rttr.addFlashAttribute("msg","success");
+		
+		return "redirect:/board/listPage";
+	}
+	
+	@RequestMapping(value="/modifyPage",method=RequestMethod.GET)
+	public void modifyGET(@RequestParam int bno,@ModelAttribute Criteria cri,Model model)throws Exception{
+		model.addAttribute(service.read(bno));
+	}
+	
+	@RequestMapping(value="/modifyPage",method=RequestMethod.POST)
+	public String modifyPOST(BoardVO board,Criteria cri,RedirectAttributes rttr)throws Exception{
+		service.modify(board);
+		rttr.addAttribute("page",cri.getPage());
+		rttr.addAttribute("perPageNum",cri.getPerPageNum());
+		rttr.addAttribute("msg","success");
+		
+		return "redirect:/board/listPage";
+	}
+	
 }
