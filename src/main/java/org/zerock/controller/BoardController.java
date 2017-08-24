@@ -10,15 +10,7 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.zerock.domain.BoardVO;
-import org.zerock.domain.Criteria;
-import org.zerock.domain.PageMaker;
 import org.zerock.service.BoardService;
 
 /*스프링2.5버젼 이상의 경우 컨트롤러 설계는 특별한 경우가 아니면,
@@ -45,7 +37,7 @@ public class BoardController {
 	 * =>메소드내에서 뷰로 전달한 데이터가 있다면,MODEL을 파라미터로 선언*/
 	/*GET방식:작업을 위한 페이지를 보는경우
 	 *POST방식:실제로 데이터를 처리하는 경우*/
-	@RequestMapping(value="/register",method=RequestMethod.GET)
+/*	@RequestMapping(value="/register",method=RequestMethod.GET)
 	public void registerGET(BoardVO vo,Model model)throws Exception{
 		logger.info("register get....");
 	}
@@ -54,10 +46,10 @@ public class BoardController {
 		logger.info("show all list......");
 		model.addAttribute("list",service.listAll());
 	}
-	/*URI를 의미하는 value속성, GET/POST의 전송방식을 결정하는 method속성
+	URI를 의미하는 value속성, GET/POST의 전송방식을 결정하는 method속성
 	 *=>이 두 속성은 배열로 여러가지 속성값을 지정가능 필요한 경우!!!
 	 *@RequestMapping(value="/register",
-	 *method={RequestMethod.GET,RequestMethod.POST})*/
+	 *method={RequestMethod.GET,RequestMethod.POST})
 	
 	//GET방식은 항상 사용자가 브라우저에서 직접 접근가능할 때 사용...
 	//일반적으로는 1)입력페이지 2)조회페이지에서 사용
@@ -78,17 +70,17 @@ public class BoardController {
 		//등록이 성공한 후 바로 리다이렉트 결과 페이지로 이동하면 사용자는 post로 작성된 결과
 		//페이지를 보지못한 상태에서 바로 목록페이지로 이동 보게된다
 	}
-	/*MODEL클래스는 스프링 MVC에서 제공하는 데이터 전달용 객체
+	MODEL클래스는 스프링 MVC에서 제공하는 데이터 전달용 객체
 	 *이는 MAP과 유사하게 KEY값/VALUE값으로 데이터를 저장하는 역할
 	 *과거 Servlet에서는 RequestDispatcher에 데이터를 저장했듯이...
-	 *스프링에서는 MODEL이용 데이터저장*/
-/*	@RequestMapping(value="/readPage",method=RequestMethod.GET)
+	 *스프링에서는 MODEL이용 데이터저장
+	@RequestMapping(value="/readPage",method=RequestMethod.GET)
 	public void read(@RequestParam("bno") int bno,Model model,@ModelAttribute("cri") Criteria cri)throws Exception{
 		model.addAttribute(service.read(bno));
 		파라미터는 외부에서 전달될 bno값을 전달받음
 		 * 좀 더 명확하게 표현하기 위해서 @RequestParam을 이용해서 구성합니다
 		 * 조회된 게시물을 jsp로 전달하기 위해 model객체 이용
-	}*/
+	}
 	//@RequestParam()은 servlet에서 request.getParameter()의 효과와 유사합니다
 	//model.addAttribute()은 전달할때 아무 이름값을 주지않고 데이터를 전송하면
 	//자동으로 클래스의 이름을 소문자로 시작해서 사용 ex)BoardVO => boardVO
@@ -96,9 +88,9 @@ public class BoardController {
 	@RequestMapping(value="/readPage",method=RequestMethod.GET)
 	public void readPage(@RequestParam("bno") int bno,@ModelAttribute("cri") Criteria cri,Model model)throws Exception{
 		model.addAttribute(service.read(bno));
-		/*파라미터는 외부에서 전달될 bno값을 전달받음
+		파라미터는 외부에서 전달될 bno값을 전달받음
 		 * 좀 더 명확하게 표현하기 위해서 @RequestParam을 이용해서 구성합니다
-		 * 조회된 게시물을 jsp로 전달하기 위해 model객체 이용*/
+		 * 조회된 게시물을 jsp로 전달하기 위해 model객체 이용
 	}
 	
 	@RequestMapping(value="/remove",method=RequestMethod.POST)
@@ -165,6 +157,6 @@ public class BoardController {
 		rttr.addAttribute("msg","success");
 		
 		return "redirect:/board/listPage";
-	}
+	}*/
 	
 }

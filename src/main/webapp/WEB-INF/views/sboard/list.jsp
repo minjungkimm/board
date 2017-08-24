@@ -16,7 +16,7 @@
 			<!-- general form elements -->
 			<div class='box'>
 				<div class="box-header with-border">
-					<h3 class="box-title">Board List</h3>
+					<h3 class="box-title"></h3>
 				</div>
 
 
@@ -131,9 +131,7 @@
 	if (result == 'SUCCESS') {
 		alert("처리가 완료되었습니다.");
 	}
-</script>
 
-<script>
 	$(document).ready(
 			function() {
 
