@@ -1,12 +1,17 @@
 package org.zerock.test;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.zerock.domain.BoardVO;
+import org.zerock.domain.SearchCriteria;
 import org.zerock.persistence.BoardDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -89,4 +94,24 @@ public class BoardDAOTest {
 		logger.info("/board/read?bno=12&perPageNum=20");
 		logger.info(uriComponents.toString());
 	}*/
+	
+	@Test
+	public void testDynamic1()throws Exception{
+		SearchCriteria cri=new SearchCriteria();
+		cri.setPage(1);
+		cri.setKeyword("Á¦¸ñ");
+		cri.setSearchType("t");
+		
+		logger.info("==================");
+		
+		List<BoardVO> list=dao.listSearch(cri);
+		
+		for(BoardVO board:list) {
+			logger.info(board.getBno()+" : "+board.getTitle());
+		}
+		
+		logger.info("==================");
+		logger.info("COUNT: "+dao.listSearchCount(cri));
+	}
+	
 }

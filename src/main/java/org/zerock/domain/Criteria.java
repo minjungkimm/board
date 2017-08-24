@@ -44,10 +44,5 @@ public class Criteria {
 		//limit 뒤의 숫자를 의미, 한 페이지당 보여지는 갯수의미
 		return this.perPageNum;
 	}
-
-	@Override
-	public String toString() {
-		return "Criteria [page=" + page + ", perPageNum=" + perPageNum + "]";
-	}
 	
 }

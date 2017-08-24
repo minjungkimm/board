@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
+import org.zerock.domain.SearchCriteria;
 
 public interface BoardService {
 /*계층별 구현-비즈니스 계층(Service)
@@ -24,4 +25,6 @@ public interface BoardService {
 	public List<BoardVO> listAll() throws Exception;
 	public List<BoardVO> listCriteria(Criteria cri)throws Exception;
 	public int listCountCriteria(Criteria cri)throws Exception;
+	public List<BoardVO> listSearch(SearchCriteria cri)throws Exception;
+	public int listSearchCount(SearchCriteria cri)throws Exception;
 }
