@@ -1,5 +1,7 @@
 package org.zerock.test;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.junit.Test;
@@ -8,50 +10,47 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.zerock.domain.ReplyVO;
-import org.zerock.persistence.ReplyDAO;
+import org.zerock.domain.BoardVO;
+import org.zerock.domain.SearchCriteria;
+import org.zerock.persistence.BoardDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(
 locations={"file:src/main/webapp/WEB-INF/**/root-context.xml"})
 public class BoardDAOTest {
 	@Inject
-	private ReplyDAO dao;
-	//private BoardDAO dao;
+	private BoardDAO dao;
 	private static Logger logger=LoggerFactory.getLogger(BoardDAOTest.class);
 	
 /*	@Test
 	public void testCreate()throws Exception{
-		ReplyVO vo=new ReplyVO();
+		BoardVO vo=new BoardVO();
 		vo.setTitle("새로운 글을 넣습니다");
 		vo.setContent("새로운 글을 넣습니다");
 		vo.setWriter("user00");
-		vo.setBno(10);
-		vo.setReplyer("user00");
-		vo.setReplytext("댓글을 추가합니다");
-		logger.info("댓글은 ? "+vo.toString());
 		dao.create(vo);
-	}*/
+	}
 	
-/*	@Test
+	@Test
 	public void testRead()throws Exception{
 		logger.info(dao.read(2).toString());
-	}*/
+	}
 	
 	@Test
 	public void testUpdate()throws Exception{
-		ReplyVO reply=new ReplyVO();
-		reply.setRno(3);
-		reply.setReplytext("댓글을 수정했습니다");
-		dao.update(reply);
+		BoardVO vo=new BoardVO();
+		vo.setBno(1);
+		vo.setTitle("수정된 글입니다.");
+		vo.setContent("수정 테스트");
+		dao.update(vo);
 	}
 	
-/*	@Test
+	@Test
 	public void testDelete()throws Exception{
 		dao.delete(1);
-	}*/
+	}
 	
-/*	@Test
+	@Test
 	public void testListPage()throws Exception{
 		int page=3;
 		List<BoardVO> list=dao.listPage(page);
@@ -96,7 +95,7 @@ public class BoardDAOTest {
 		logger.info(uriComponents.toString());
 	}*/
 	
-/*	@Test
+	@Test
 	public void testDynamic1()throws Exception{
 		SearchCriteria cri=new SearchCriteria();
 		cri.setPage(1);
@@ -113,6 +112,6 @@ public class BoardDAOTest {
 		
 		logger.info("==================");
 		logger.info("COUNT: "+dao.listSearchCount(cri));
-	}*/
+	}
 	
 }
